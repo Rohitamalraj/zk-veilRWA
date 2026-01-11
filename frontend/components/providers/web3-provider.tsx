@@ -6,11 +6,10 @@ import { WagmiProvider, type Config } from 'wagmi';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactNode } from 'react';
 
-// Define Mantle Sepolia network
+// Define Mantle Sepolia network (official config from docs)
 const mantleSepolia = {
   id: 5003,
-  name: 'Mantle Sepolia',
-  network: 'mantle-sepolia',
+  name: 'Mantle Sepolia Testnet',
   nativeCurrency: {
     decimals: 18,
     name: 'MNT',
@@ -18,9 +17,6 @@ const mantleSepolia = {
   },
   rpcUrls: {
     default: {
-      http: ['https://rpc.sepolia.mantle.xyz'],
-    },
-    public: {
       http: ['https://rpc.sepolia.mantle.xyz'],
     },
   },

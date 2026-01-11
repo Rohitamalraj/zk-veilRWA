@@ -2,7 +2,7 @@
 export const CONTRACTS = {
   KYCRegistry: '0x0f61cB672d345797f6A1505A282240583F902cb2',
   MockRWAToken: '0x35FB06244022403dc1a0cC308E150b5744e37A6b',
-  VeilRWAVault: '0x4aa35B5410dfce8358C721c5B4C7b0c0c6C3CD98',
+  VeilRWAVault: '0xd9133c2CcA52e7dfFdBAEAA0B3228c9288c19E5f',
 } as const;
 
 // VeilRWAVault ABI (key functions only)

@@ -77,11 +77,12 @@ export default function VaultPage() {
   const handleDeposit = async () => {
     if (!depositAmount || !address) return;
     
-    setIsDepositing(true);
     try {
       // Generate commitment (simplified - in production use proper ZK commitment)
       const salt = Math.floor(Math.random() * 1000000).toString();
       const commitment = keccak256(toHex(depositAmount + salt));
+      
+      console.log('Depositing with commitment:', commitment);
       
       // Empty proof for now (placeholder - will be replaced with real ZK proof)
       const emptyProof = '0x';
@@ -102,8 +103,6 @@ export default function VaultPage() {
 
     } catch (error) {
       console.error('Deposit error:', error);
-    } finally {
-      setIsDepositing(false);
     }
   };
 
@@ -271,11 +270,11 @@ export default function VaultPage() {
               ) : (
                 <Button
                   onClick={handleDeposit}
-                  disabled={isDepositing || isDepositTxPending || !depositAmount}
+                  disabled={isDepositTxPending || !depositAmount || !isConnected}
                   className="w-full h-12 text-lg"
                   size="lg"
                 >
-                  {isDepositing || isDepositTxPending ? 'Depositing...' : 'Deposit Privately'}
+                  {isDepositTxPending ? 'Depositing...' : 'Deposit Privately'}
                 </Button>
               )}
 

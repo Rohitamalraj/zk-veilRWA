@@ -65,6 +65,8 @@ contract VeilRWAVault is Ownable, ReentrancyGuard, Pausable {
     error InvalidYieldAmount();
     error InvalidCommitment();
     error ZeroAddress();
+    error InsufficientAmount();
+    error ExcessiveAmount();
     
     // ============ Constructor ============
     
@@ -92,19 +94,26 @@ contract VeilRWAVault is Ownable, ReentrancyGuard, Pausable {
     
     /**
      * @notice Deposit funds with a commitment (balance is private)
+     * @param amount The amount of tokens to deposit
      * @param commitment The Poseidon hash commitment of (balance, salt)
      * @param zkKYCProof Zero-knowledge proof of valid KYC
      */
     function deposit(
+        uint256 amount,
         bytes32 commitment,
         bytes calldata zkKYCProof
     ) external whenNotPaused nonReentrant {
+        if (amount < minDeposit) revert InsufficientAmount();
+        if (amount > maxDeposit) revert ExcessiveAmount();
         if (commitment == bytes32(0)) revert InvalidCommitment();
         if (commitments[commitment]) revert CommitmentAlreadyExists();
         
         // TODO: Verify KYC proof via zkVerifier
         // For now, we'll implement a simplified version
         // In production, this would call: IZKVerifier(zkVerifier).verifyKYCProof(zkKYCProof)
+        
+        // Transfer tokens from user to vault
+        yieldToken.transferFrom(msg.sender, address(this), amount);
         
         // Store commitment
         commitments[commitment] = true;
