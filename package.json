@@ -1,26 +1,27 @@
 {
-  "name": "veilrwa-app",
-  "version": "0.1.0",
+  "name": "veilrwa-monorepo",
+  "version": "1.0.0",
+  "description": "VeilRWA - Privacy-Preserving RWA Yield Platform on Mantle",
   "private": true,
+  "workspaces": [
+    "frontend",
+    "backend",
+    "contracts"
+  ],
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint"
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && npm run dev",
+    "build:frontend": "cd frontend && npm run build",
+    "deploy:contracts": "cd contracts && npx hardhat run scripts/deploy.js --network mantleSepolia",
+    "test:contracts": "cd contracts && npx hardhat test"
   },
-  "dependencies": {
-    "next": "16.1.1",
-    "react": "19.2.3",
-    "react-dom": "19.2.3"
-  },
-  "devDependencies": {
-    "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "16.1.1",
-    "tailwindcss": "^4",
-    "typescript": "^5"
-  }
+  "keywords": [
+    "RWA",
+    "ZK",
+    "Privacy",
+    "Mantle",
+    "DeFi"
+  ],
+  "author": "",
+  "license": "MIT"
 }

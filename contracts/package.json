@@ -1,0 +1,14 @@
+{
+  "name": "veilrwa-contracts",
+  "version": "1.0.0",
+  "description": "Smart contracts for VeilRWA",
+  "main": "hardhat.config.js",
+  "scripts": {
+    "test": "hardhat test",
+    "deploy": "hardhat run scripts/deploy.js",
+    "compile": "hardhat compile"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT"
+}
