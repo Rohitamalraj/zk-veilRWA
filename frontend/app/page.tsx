@@ -3,27 +3,30 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { Shield, Eye, Lock, Coins, ChevronRight, Zap } from "lucide-react"
 import Link from "next/link"
+import { Navbar } from "@/components/ui/navbar"
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-zinc-950">
+      <Navbar />
+      
       {/* Hero Section */}
-      <section className="relative overflow-hidden border-b border-zinc-800">
-        <div className="absolute inset-0 bg-gradient-to-br from-violet-900/20 via-zinc-950 to-emerald-900/20" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(139,92,246,0.1)_0%,transparent_65%)]" />
+      <section className="relative overflow-hidden border-b border-zinc-800 pt-20">
+        <div className="absolute inset-0 bg-zinc-950" />
+        <div className="absolute inset-0" />
         
         <div className="relative container mx-auto px-4 py-24 sm:py-32">
           <div className="flex flex-col items-center text-center space-y-8">
-            <Badge variant="outline" className="border-violet-500/50 text-violet-400 px-4 py-1.5">
+            <Badge variant="outline" className="border-zinc-700 text-zinc-400 px-4 py-1.5 bg-zinc-900/50">
               <Zap className="w-3 h-3 mr-2" />
               Built on Mantle Network
             </Badge>
             
-            <h1 className="text-5xl sm:text-7xl font-bold tracking-tight bg-gradient-to-br from-zinc-100 via-zinc-300 to-zinc-500 bg-clip-text text-transparent max-w-4xl">
+            <h1 className="text-5xl sm:text-7xl font-bold font-display tracking-tight text-zinc-100 max-w-4xl">
               Privacy-Preserving RealFi on Mantle
             </h1>
             
-            <p className="text-xl sm:text-2xl text-zinc-400 max-w-3xl">
+            <p className="text-xl sm:text-2xl text-zinc-500 max-w-3xl">
               Compliant access to real-world yield using zero-knowledge proofs. Prove eligibility without revealing identity, balances, or strategies.
             </p>
             
@@ -39,15 +42,15 @@ export default function Home() {
             
             <div className="grid grid-cols-3 gap-8 mt-16 pt-16 border-t border-zinc-800">
               <div className="text-center">
-                <div className="text-3xl font-bold text-violet-400">ZK Proofs</div>
+                <div className="text-3xl font-bold text-zinc-100">ZK Proofs</div>
                 <div className="text-sm text-zinc-500 mt-1">Privacy First</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-emerald-400">Compliant</div>
+                <div className="text-3xl font-bold text-zinc-100">Compliant</div>
                 <div className="text-sm text-zinc-500 mt-1">KYC Verified</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-blue-400">5% APY</div>
+                <div className="text-3xl font-bold text-zinc-100">5% APY</div>
                 <div className="text-sm text-zinc-500 mt-1">Fixed Yield</div>
               </div>
             </div>
