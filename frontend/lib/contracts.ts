@@ -2,7 +2,8 @@
 export const CONTRACTS = {
   KYCRegistry: '0x0f61cB672d345797f6A1505A282240583F902cb2',
   MockRWAToken: '0x35FB06244022403dc1a0cC308E150b5744e37A6b',
-  VeilRWAVault: '0xd9133c2CcA52e7dfFdBAEAA0B3228c9288c19E5f',
+  VeilRWAVault: '0x902134f3832F9C780BEe643a11dfBb2561aC23ed', // V3 with full ZK verification
+  VeilRWAVaultV2: '0xd9133c2CcA52e7dfFdBAEAA0B3228c9288c19E5f', // V2 (old, simple verification)
   // ZK Verifiers
   DepositVerifier: '0x20032EA6f975FbfA5aFbA329f2c2fCE51B60FE94',
   YieldVerifier: '0x4040D46b287993060eE7f51B7c87F8bfd913508C',
@@ -17,7 +18,20 @@ export const VAULT_ABI = [
     inputs: [
       { name: 'amount', type: 'uint256' },
       { name: 'commitment', type: 'bytes32' },
-      { name: 'zkKYCProof', type: 'bytes' },
+      { name: 'pA', type: 'uint256[2]' },
+      { name: 'pB', type: 'uint256[2][2]' },
+      { name: 'pC', type: 'uint256[2]' },
+      { name: 'publicSignals', type: 'uint256[1]' },
+    ],
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    name: 'depositSimple',
+    inputs: [
+      { name: 'amount', type: 'uint256' },
+      { name: 'commitment', type: 'bytes32' },
     ],
     outputs: [],
     stateMutability: 'nonpayable',

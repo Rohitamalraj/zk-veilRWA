@@ -6,7 +6,8 @@
 
 | Contract | Address | Explorer |
 |----------|---------|----------|
-| **VeilRWAVault** | `0xd9133c2CcA52e7dfFdBAEAA0B3228c9288c19E5f` | [View](https://explorer.sepolia.mantle.xyz/address/0xd9133c2CcA52e7dfFdBAEAA0B3228c9288c19E5f) |
+| **VeilRWAVaultV3** (CURRENT) | `0x902134f3832F9C780BEe643a11dfBb2561aC23ed` | [View](https://explorer.sepolia.mantle.xyz/address/0x902134f3832F9C780BEe643a11dfBb2561aC23ed) |
+| **VeilRWAVaultV2** (Old) | `0xd9133c2CcA52e7dfFdBAEAA0B3228c9288c19E5f` | [View](https://explorer.sepolia.mantle.xyz/address/0xd9133c2CcA52e7dfFdBAEAA0B3228c9288c19E5f) |
 | **MockRWAToken (TBILL)** | `0x35FB06244022403dc1a0cC308E150b5744e37A6b` | [View](https://explorer.sepolia.mantle.xyz/address/0x35FB06244022403dc1a0cC308E150b5744e37A6b) |
 | **KYCRegistry** | `0x0f61cB672d345797f6A1505A282240583F902cb2` | [View](https://explorer.sepolia.mantle.xyz/address/0x0f61cB672d345797f6A1505A282240583F902cb2) |
 
@@ -22,16 +23,24 @@
 
 ## Deployment Details
 
-### VeilRWAVault v2 (Current)
-- **Version**: 2.0 (Fixed with token transfers)
+### VeilRWAVault V3 (Current - Full ZK Verification)
+- **Version**: 3.0 (On-chain proof verification)
 - **Deployed**: January 2026
 - **Features**:
-  - Private deposits with ZK commitments
-  - Yield claiming with ZK proofs
-  - Real token transfers on deposit
+  - ✅ Full on-chain ZK proof verification via verifier contracts
+  - ✅ Calls DepositVerifier.verifyProof() for deposit commitments
+  - ✅ Calls YieldVerifier.verifyProof() for yield claims
+  - ✅ Groth16 proof validation on every deposit/claim
+  - Private deposits with Poseidon commitments
+  - Yield claiming with nullifiers
   - Minimum deposit: 100 TBILL
   - Maximum deposit: 10,000 TBILL
   - Yield rate: 5% APY
+
+### VeilRWAVault v2 (Previous)
+- **Version**: 2.0 (Simplified verification)
+- **Status**: Deprecated
+- **Note**: Accepted proofs as bytes but didn't verify cryptographically
 
 ### ZK Proof System
 - **Proof System**: Groth16
