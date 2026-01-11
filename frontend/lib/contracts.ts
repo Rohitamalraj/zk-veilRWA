@@ -3,6 +3,10 @@ export const CONTRACTS = {
   KYCRegistry: '0x0f61cB672d345797f6A1505A282240583F902cb2',
   MockRWAToken: '0x35FB06244022403dc1a0cC308E150b5744e37A6b',
   VeilRWAVault: '0xd9133c2CcA52e7dfFdBAEAA0B3228c9288c19E5f',
+  // ZK Verifiers
+  DepositVerifier: '0x20032EA6f975FbfA5aFbA329f2c2fCE51B60FE94',
+  YieldVerifier: '0x4040D46b287993060eE7f51B7c87F8bfd913508C',
+  KYCVerifier: '0x870f9724047acba94885359f38cA55D639A4C564',
 } as const;
 
 // VeilRWAVault ABI (key functions only)

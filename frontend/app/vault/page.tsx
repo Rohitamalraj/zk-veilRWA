@@ -10,6 +10,7 @@ import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { ArrowDownIcon, ArrowUpIcon, LockIcon, ShieldCheckIcon, TrendingUpIcon } from 'lucide-react';
 import { CONTRACTS, VAULT_ABI, TOKEN_ABI } from '@/lib/contracts';
+import { generateDepositProof, generateYieldProof, generateRandomSalt, encodeProofAsBytes } from '@/lib/zkProofs';
 
 export default function VaultPage() {
   const { address, isConnected } = useAccount();
@@ -17,6 +18,7 @@ export default function VaultPage() {
   const [claimAmount, setClaimAmount] = useState('');
   const [isDepositing, setIsDepositing] = useState(false);
   const [isClaiming, setIsClaiming] = useState(false);
+  const [isGeneratingProof, setIsGeneratingProof] = useState(false);
 
   // Read vault data
   const { data: yieldRate } = useReadContract({
