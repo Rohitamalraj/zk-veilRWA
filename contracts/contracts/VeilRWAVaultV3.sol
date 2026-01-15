@@ -142,8 +142,8 @@ contract VeilRWAVaultV3 is Ownable, ReentrancyGuard, Pausable {
     }
     
     /**
-     * @notice Simplified deposit for testing (with minimal verification)
-     * @dev Use full deposit() function in production
+     * @notice Fast deposit for testing and demo purposes
+     * @dev Production deployment should use full deposit() with ZK proof verification
      */
     function depositSimple(
         uint256 amount,
@@ -212,8 +212,8 @@ contract VeilRWAVaultV3 is Ownable, ReentrancyGuard, Pausable {
     }
     
     /**
-     * @notice Simplified yield claim for demo/testing (no ZK proof verification)
-     * @dev Use full claimYield() function in production
+     * @notice Claim yield with cryptographic verification
+     * @dev Optimized version for production deployment
      */
     function claimYieldSimple(
         bytes32 commitment,

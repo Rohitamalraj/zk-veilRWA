@@ -6,6 +6,7 @@ const navLinks = [
   { href: "#features", label: "Features" },
   { href: "#how-it-works", label: "How It Works" },
   { href: "/vault", label: "Vault" },
+  { href: "/kyc-test", label: "KYC" },
 ]
 
 export function Navbar() {

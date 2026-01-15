@@ -91,34 +91,34 @@ export default function KYCTestPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 p-8">
-      <div className="max-w-6xl mx-auto space-y-8">
+    <div className="min-h-screen bg-zinc-950 p-8">
+      <div className="max-w-6xl mx-auto space-y-8 pt-20">
         {/* Header */}
         <div className="text-center space-y-4">
           <div className="flex items-center justify-center gap-2">
-            <ShieldCheckIcon className="w-12 h-12 text-blue-400" />
-            <h1 className="text-4xl font-bold text-white">KYC ZK Testing</h1>
+            <ShieldCheckIcon className="w-12 h-12 text-zinc-400" />
+            <h1 className="text-4xl font-bold text-zinc-100">KYC ZK Testing</h1>
           </div>
-          <p className="text-gray-400">
+          <p className="text-zinc-500">
             Test the zero-knowledge KYC credential system
           </p>
         </div>
 
         {/* Step 1: Issue Credential */}
-        <Card className="p-6 bg-gray-800/50 border-gray-700">
+        <Card className="p-6 bg-zinc-900/50 border-zinc-800">
           <div className="space-y-4">
             <div className="flex items-center gap-2">
-              <Badge variant="outline" className="bg-blue-500/10 text-blue-400 border-blue-500/20">
+              <Badge variant="outline" className="bg-zinc-800 text-zinc-400 border-zinc-700">
                 Step 1
               </Badge>
-              <h2 className="text-2xl font-semibold text-white">Issue KYC Credential</h2>
+              <h2 className="text-2xl font-semibold text-zinc-100">Issue KYC Credential</h2>
             </div>
 
             <div className="grid md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <label className="text-sm text-gray-400">Country</label>
+                <label className="text-sm text-zinc-400">Country</label>
                 <Select value={selectedCountry} onValueChange={setSelectedCountry}>
-                  <SelectTrigger className="bg-gray-900 border-gray-700 text-white">
+                  <SelectTrigger className="bg-zinc-950 border-zinc-800 text-zinc-100">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -132,7 +132,7 @@ export default function KYCTestPage() {
               </div>
 
               <div className="space-y-2 flex items-end">
-                <label className="flex items-center gap-2 text-sm text-gray-400">
+                <label className="flex items-center gap-2 text-sm text-zinc-400">
                   <Checkbox
                     checked={isAccredited}
                     onCheckedChange={(checked) => setIsAccredited(checked as boolean)}
@@ -163,9 +163,9 @@ export default function KYCTestPage() {
             </Button>
 
             {credential && (
-              <div className="mt-4 p-4 bg-gray-900/50 rounded-lg border border-gray-700 space-y-2">
-                <h3 className="text-sm font-semibold text-gray-300">Credential Details:</h3>
-                <div className="text-xs text-gray-400 space-y-1">
+              <div className="mt-4 p-4 bg-zinc-950/50 rounded-lg border border-zinc-800 space-y-2">
+                <h3 className="text-sm font-semibold text-zinc-300">Credential Details:</h3>
+                <div className="text-xs text-zinc-400 space-y-1">
                   <p>• KYC Status: {credential.credential.isKYCed ? 'Verified' : 'Not Verified'}</p>
                   <p>• Country: {countries.find(c => c.code === credential.credential.countryCode.toString())?.name}</p>
                   <p>• Accredited: {credential.credential.isAccredited ? 'Yes' : 'No'}</p>
@@ -180,16 +180,16 @@ export default function KYCTestPage() {
         </Card>
 
         {/* Step 2: Generate ZK Proof */}
-        <Card className="p-6 bg-gray-800/50 border-gray-700">
+        <Card className="p-6 bg-zinc-900/50 border-zinc-800">
           <div className="space-y-4">
             <div className="flex items-center gap-2">
-              <Badge variant="outline" className="bg-purple-500/10 text-purple-400 border-purple-500/20">
+              <Badge variant="outline" className="bg-zinc-800 text-zinc-400 border-zinc-700">
                 Step 2
               </Badge>
-              <h2 className="text-2xl font-semibold text-white">Generate ZK Proof</h2>
+              <h2 className="text-2xl font-semibold text-zinc-100">Generate ZK Proof</h2>
             </div>
 
-            <p className="text-sm text-gray-400">
+            <p className="text-sm text-zinc-400">
               Generate a zero-knowledge proof that you have a valid KYC credential without revealing any personal information.
             </p>
 
@@ -214,9 +214,9 @@ export default function KYCTestPage() {
             </Button>
 
             {proof && (
-              <div className="mt-4 p-4 bg-gray-900/50 rounded-lg border border-gray-700 space-y-2">
-                <h3 className="text-sm font-semibold text-gray-300">Proof Details:</h3>
-                <div className="text-xs text-gray-400 space-y-1">
+              <div className="mt-4 p-4 bg-zinc-950/50 rounded-lg border border-zinc-800 space-y-2">
+                <h3 className="text-sm font-semibold text-zinc-300">Proof Details:</h3>
+                <div className="text-xs text-zinc-400 space-y-1">
                   <p>• Proof Type: Groth16</p>
                   <p>• Curve: bn128</p>
                   <p>• Public Signals: {proof.publicSignals.length}</p>
@@ -231,21 +231,21 @@ export default function KYCTestPage() {
 
         {/* Step 3: Verification Result */}
         {verificationResult !== null && (
-          <Card className={`p-6 border-2 ${verificationResult ? 'bg-green-900/20 border-green-500/50' : 'bg-red-900/20 border-red-500/50'}`}>
+          <Card className={`p-6 border-2 ${verificationResult ? 'bg-zinc-900/50 border-zinc-700' : 'bg-zinc-900/50 border-zinc-800'}`}>
             <div className="space-y-4">
               <div className="flex items-center gap-2">
-                <Badge variant="outline" className={verificationResult ? 'bg-green-500/10 text-green-400 border-green-500/20' : 'bg-red-500/10 text-red-400 border-red-500/20'}>
+                <Badge variant="outline" className={verificationResult ? 'bg-zinc-800 text-zinc-400 border-zinc-700' : 'bg-zinc-800 text-zinc-400 border-zinc-700'}>
                   Step 3
                 </Badge>
-                <h2 className="text-2xl font-semibold text-white">Verification Result</h2>
+                <h2 className="text-2xl font-semibold text-zinc-100">Verification Result</h2>
               </div>
 
-              <div className={`text-center py-8 ${verificationResult ? 'text-green-400' : 'text-red-400'}`}>
+              <div className={`text-center py-8 ${verificationResult ? 'text-zinc-300' : 'text-zinc-400'}`}>
                 {verificationResult ? (
                   <>
                     <CheckCircleIcon className="w-16 h-16 mx-auto mb-4" />
                     <h3 className="text-2xl font-bold">✅ Proof Verified!</h3>
-                    <p className="text-gray-400 mt-2">
+                    <p className="text-zinc-500 mt-2">
                       The ZK proof is cryptographically valid. This proves eligibility without revealing personal data.
                     </p>
                   </>
@@ -255,7 +255,7 @@ export default function KYCTestPage() {
                       <span className="text-4xl">❌</span>
                     </div>
                     <h3 className="text-2xl font-bold">Proof Invalid</h3>
-                    <p className="text-gray-400 mt-2">
+                    <p className="text-zinc-500 mt-2">
                       The ZK proof verification failed.
                     </p>
                   </>
@@ -266,9 +266,9 @@ export default function KYCTestPage() {
         )}
 
         {/* Info */}
-        <Card className="p-6 bg-blue-900/10 border-blue-500/20">
-          <h3 className="text-lg font-semibold text-blue-400 mb-2">How it works</h3>
-          <ul className="text-sm text-gray-400 space-y-2">
+        <Card className="p-6 bg-zinc-900/50 border-zinc-800">
+          <h3 className="text-lg font-semibold text-zinc-300 mb-2">How it works</h3>
+          <ul className="text-sm text-zinc-400 space-y-2">
             <li>1. <strong>Credential Issuance:</strong> A KYC provider signs your credentials using EdDSA</li>
             <li>2. <strong>Proof Generation:</strong> You generate a ZK proof that proves credential validity without revealing personal data</li>
             <li>3. <strong>Verification:</strong> The proof can be verified on-chain without exposing your identity</li>
