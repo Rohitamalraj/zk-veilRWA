@@ -170,7 +170,7 @@ contract VeilRWAVaultV3 is Ownable, ReentrancyGuard, Pausable {
      * @param pA Proof component A
      * @param pB Proof component B
      * @param pC Proof component C
-     * @param publicSignals Public signals for verification
+     * @param publicSignals Public signals for verification [commitment, yieldRate, currentTimestamp, nullifier, claimedYield, depositTimestamp]
      */
     function claimYield(
         bytes32 nullifier,
@@ -178,7 +178,7 @@ contract VeilRWAVaultV3 is Ownable, ReentrancyGuard, Pausable {
         uint[2] calldata pA,
         uint[2][2] calldata pB,
         uint[2] calldata pC,
-        uint[1] calldata publicSignals
+        uint[6] calldata publicSignals
     ) external whenNotPaused nonReentrant {
         if (nullifier == bytes32(0)) revert InvalidCommitment();
         if (nullifiers[nullifier]) revert NullifierAlreadyUsed();
@@ -189,11 +189,46 @@ contract VeilRWAVaultV3 is Ownable, ReentrancyGuard, Pausable {
         if (vaultBalance < yieldAmount) revert InsufficientYieldBalance();
         
         // Verify ZK proof for yield calculation
-        bool valid = IGroth16Verifier(yieldVerifier).verifyProof(pA, pB, pC, publicSignals);
+        bool valid = IYieldVerifier(yieldVerifier).verifyProof(pA, pB, pC, publicSignals);
         if (!valid) revert InvalidYieldProof();
         
         // Verify yield amount matches public signal
-        if (yieldAmount != publicSignals[0]) revert InvalidYieldAmount();
+        // SnarkJS outputs: [output signals, then public inputs]
+        // Order: [isValid, commitment, yieldRate, currentTimestamp, nullifier, claimedYield]
+        // Index 5 = claimedYield (0-indexed array)
+        // Note: claimedYield in circuit is in whole tokens, yieldAmount is in wei
+        // Convert yieldAmount to whole tokens by dividing by 1e18
+        uint256 yieldAmountInTokens = yieldAmount / 1e18;
+        if (yieldAmountInTokens != publicSignals[5]) revert InvalidYieldAmount();
+        
+        // Mark nullifier as used
+        nullifiers[nullifier] = true;
+        
+        // Transfer yield tokens to user
+        bool success = yieldToken.transfer(msg.sender, yieldAmount);
+        if (!success) revert InsufficientYieldBalance();
+        
+        emit YieldClaimed(nullifier, msg.sender, yieldAmount, block.timestamp);
+    }
+    
+    /**
+     * @notice Simplified yield claim for demo/testing (no ZK proof verification)
+     * @dev Use full claimYield() function in production
+     */
+    function claimYieldSimple(
+        bytes32 commitment,
+        bytes32 nullifier,
+        uint256 yieldAmount
+    ) external whenNotPaused nonReentrant {
+        if (commitment == bytes32(0)) revert InvalidCommitment();
+        if (!commitments[commitment]) revert InvalidCommitment();
+        if (nullifier == bytes32(0)) revert InvalidCommitment();
+        if (nullifiers[nullifier]) revert NullifierAlreadyUsed();
+        if (yieldAmount == 0) revert InvalidYieldAmount();
+        
+        // Check vault has sufficient yield tokens
+        uint256 vaultBalance = yieldToken.balanceOf(address(this));
+        if (vaultBalance < yieldAmount) revert InsufficientYieldBalance();
         
         // Mark nullifier as used
         nullifiers[nullifier] = true;

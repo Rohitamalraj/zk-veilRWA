@@ -2,11 +2,13 @@
 export const CONTRACTS = {
   KYCRegistry: '0x0f61cB672d345797f6A1505A282240583F902cb2',
   MockRWAToken: '0x35FB06244022403dc1a0cC308E150b5744e37A6b',
-  VeilRWAVault: '0x902134f3832F9C780BEe643a11dfBb2561aC23ed', // V3 with full ZK verification
+  VeilRWAVault: '0x332dca53aC3C7b86bCb7F9f58E2d6b8284705231', // V3 - Simple claim for demo
   VeilRWAVaultV2: '0xd9133c2CcA52e7dfFdBAEAA0B3228c9288c19E5f', // V2 (old, simple verification)
+  VeilRWAVaultOld: '0x902134f3832F9C780BEe643a11dfBb2561aC23ed', // V3 old - had wrong signature
   // ZK Verifiers
   DepositVerifier: '0x20032EA6f975FbfA5aFbA329f2c2fCE51B60FE94',
-  YieldVerifier: '0x4040D46b287993060eE7f51B7c87F8bfd913508C',
+  YieldVerifier: '0xfE82EDaf1B490D90bc08397b7b8Fa79DD8A0A682', // NEW - accepts 6 public signals
+  YieldVerifierOld: '0x4040D46b287993060eE7f51B7c87F8bfd913508C', // OLD - accepted 1 public signal
   KYCVerifier: '0x870f9724047acba94885359f38cA55D639A4C564',
 } as const;
 
@@ -42,7 +44,21 @@ export const VAULT_ABI = [
     inputs: [
       { name: 'nullifier', type: 'bytes32' },
       { name: 'yieldAmount', type: 'uint256' },
-      { name: 'zkYieldProof', type: 'bytes' },
+      { name: 'pA', type: 'uint256[2]' },
+      { name: 'pB', type: 'uint256[2][2]' },
+      { name: 'pC', type: 'uint256[2]' },
+      { name: 'publicSignals', type: 'uint256[6]' },
+    ],
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    name: 'claimYieldSimple',
+    inputs: [
+      { name: 'commitment', type: 'bytes32' },
+      { name: 'nullifier', type: 'bytes32' },
+      { name: 'yieldAmount', type: 'uint256' },
     ],
     outputs: [],
     stateMutability: 'nonpayable',

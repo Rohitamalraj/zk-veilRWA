@@ -2,6 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Manrope } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
+import { headers } from "next/headers"
 import { LenisProvider } from "@/components/providers/lenis-provider"
 import { Web3Provider } from "@/components/providers/web3-provider"
 import "./globals.css"
@@ -18,11 +19,14 @@ export const metadata: Metadata = {
   keywords: ["RWA", "Zero-Knowledge", "ZK", "Privacy", "DeFi", "Mantle", "RealFi", "Compliance"],
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const headersObj = await headers()
+  const cookies = headersObj.get('cookie')
+
   return (
     <html lang="en" className="dark">
       <head>
@@ -32,7 +36,7 @@ export default function RootLayout({
         />
       </head>
       <body className={`${manrope.variable} font-sans antialiased bg-zinc-950 text-zinc-100`}>
-        <Web3Provider>
+        <Web3Provider cookies={cookies}>
           <LenisProvider>{children}</LenisProvider>
         </Web3Provider>
         <Analytics />

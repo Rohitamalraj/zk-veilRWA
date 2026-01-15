@@ -1,7 +1,8 @@
-import "@nomicfoundation/hardhat-toolbox";
-import { config as dotenvConfig } from "dotenv";
+require("@nomicfoundation/hardhat-toolbox");
+const { config: dotenvConfig } = require("dotenv");
+const path = require("path");
 
-dotenvConfig();
+dotenvConfig({ path: path.resolve(__dirname, ".env") });
 
 const config = {
   solidity: {
@@ -65,4 +66,4 @@ const config = {
   },
 };
 
-export default config;
+module.exports = config;
